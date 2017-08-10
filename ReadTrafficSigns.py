@@ -33,7 +33,8 @@ def readTrafficSigns(rootpath):
         next(gtReader) # skip header
         # loop over all images in current annotations file
         for row in gtReader:
-            images.append(plt.imread(prefix + row[0])) # the 1th column is the filename
+            img = plt.imread(prefix + row[0])
+            images.append(img) # the 1th column is the filename
             labels.append(row[7]) # the 8th column is the label
         gtFile.close()
     return images, labels
