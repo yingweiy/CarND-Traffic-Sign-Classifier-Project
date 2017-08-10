@@ -5,4 +5,6 @@ models
 *.swp
 *.p
 .idea/
+*.zip
+data/
 
