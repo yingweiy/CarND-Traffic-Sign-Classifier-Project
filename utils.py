@@ -1,7 +1,7 @@
 from urllib.request import urlretrieve
 from zipfile import ZipFile
 import os
-from readTrafficSigns import readTrafficSigns
+from ReadTrafficSigns import readTrafficSigns
 from tqdm import tqdm
 import numpy as np
 from PIL import Image
