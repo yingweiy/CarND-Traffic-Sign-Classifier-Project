@@ -7,4 +7,8 @@ models
 .idea/
 *.zip
 data/
+checkpoint
+*.data*
+*.index
+*.meta
 
