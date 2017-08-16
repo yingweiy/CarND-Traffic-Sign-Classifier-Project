@@ -147,8 +147,12 @@ Answer: the parameters are use the default LeNet parameters from previous quiz. 
 
 * What are some of the important design choices and why were they chosen? 
 
-Answer: RELU in the fully connected layer is an important choice. It is simple, and introduces
+Answer: 
+
+1. RELU in the fully connected layer is an important choice. It is simple, and introduces
 the non-linearality into the networks.
+
+2. The additional number of convolutional layers and fully connected layers are useful to increase the training accuracy.
 
 Note: in my test, the dropout does not help much, so I did not use them.
 
