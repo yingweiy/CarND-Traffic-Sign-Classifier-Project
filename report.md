@@ -17,6 +17,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./Selection_001.png "Deer Dark"
 [image2]: ./Selection_002.png "Deer Bright"
+[image3]: ./Selection_003.png "features"
 [web1]: ./web_images/web1.png "web1"
 [web2]: ./web_images/web2.png "web2"
 [web3]: ./web_images/web3.png "web3"
@@ -208,4 +209,14 @@ For the second image ...
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 ####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
+The first convolution layer outputs from six filters are extracted and illustrated as shown below:
 
+![alt text][image3]
+
+* FeatureMap0: It seems the text "STOP" is enhanced.
+* FeatureMap1: This filter appears to extract the derivatives of the image,
+* FeatureMap2: This filter has a preference of 40-45 degree angle features.
+* FeatureMap3: This appears to be the reverse of FeatureMap1.
+* FeatureMap4: This filter highlights the stright lines of horizontal or vertical oriented patterns.
+* FeatureMap5: This filter extract high frequency vertical lines.
+ 
