@@ -102,7 +102,7 @@ My final model consisted of the following layers:
 | Max pooling	      	| 2x2 stride                     				|
 | Convolution 5x5x6    	| 1x1 stride, same padding 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
+| Max pooling	      	| 2x2 stride 				|
 | Convolution 3x3x16 	| 1x1 stride, same padding 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride 				|
@@ -163,7 +163,7 @@ Note: in my test, the dropout does not improve, so I did not use them.
 
 Here are nine German traffic signs that I found on the web:
 
-(sorry, these images are adapted with different image sizes.)
+(Please note that these images are adapted with different image sizes as the size adapted from their web source.)
 
 ![alt text][web1] ![alt text][web2] ![alt text][web3]
  
