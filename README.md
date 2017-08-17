@@ -1,54 +1,272 @@
-## Project: Build a Traffic Sign Recognition Program
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+#**Project II: Traffic Sign Recognition** 
 
-Overview
 ---
-In this project, you will use what you've learned about deep neural networks and convolutional neural networks to classify traffic signs. You will train and validate a model so it can classify traffic sign images using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). After the model is trained, you will then try out your model on images of German traffic signs that you find on the web.
 
-We have included an Ipython notebook that contains further instructions 
-and starter code. Be sure to download the [Ipython notebook](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb). 
+**Build a Traffic Sign Recognition Project**
 
-We also want you to create a detailed writeup of the project. Check out the [writeup template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup. The writeup can be either a markdown file or a pdf document.
-
-To meet specifications, the project will require submitting three files: 
-* the Ipython notebook with the code
-* the code exported as an html file
-* a writeup report either as a markdown or pdf file 
-
-Creating a Great Writeup
----
-A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
-
-The Project
----
 The goals / steps of this project are the following:
-* Load the data set
+* Load the data set (see below for links to the project data set)
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
-### Dependencies
-This lab requires:
 
-* [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
+[//]: # (Image References)
 
-The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
+[image1]: ./Selection_001.png "Deer Dark"
+[image2]: ./Selection_002.png "Deer Bright"
+[image3]: ./Selection_003.png "features"
+[web1]: ./web_images/web1.png "web1"
+[web2]: ./web_images/web2.png "web2"
+[web3]: ./web_images/web3.png "web3"
+[web4]: ./web_images/web4.png "web4"
+[web5]: ./web_images/web5.png "web5"
+[web6]: ./web_images/web6.png "web6"
+[web7]: ./web_images/web7.png "web7"
+[web8]: ./web_images/web8.png "web8"
+[web9]: ./web_images/web9.png "web9"
 
-### Dataset and Repository
+[signs_matrix]: ./traffic_signs.png "Traffic Signs Ensemble"
+[hist]: ./hist.png "The histogram of training dataset by labels"
 
-1. Download the data set. The classroom has a link to the data set in the "Project Instructions" content. This is a pickled dataset in which we've already resized the images to 32x32. It contains a training, validation and test set.
-2. Clone the project, which contains the Ipython notebook and the writeup template.
-```sh
-git clone https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project
-cd CarND-Traffic-Sign-Classifier-Project
-jupyter notebook Traffic_Sign_Classifier.ipynb
-```
 
-### Requirements for Submission
-Follow the instructions in the `Traffic_Sign_Classifier.ipynb` notebook and write the project report using the writeup template as a guide, `writeup_template.md`. Submit the project code and writeup document.
+## Rubric Points
+###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+
+---
+###Writeup / README
+
+####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+
+You're reading it! and here is a link to my [project code](https://github.com/yingweiy/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+
+###Data Set Summary & Exploration
+
+####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+
+I used the numpy library to calculate summary statistics of the traffic
+signs data set:
+
+* The size of training set is 34799
+* The size of the validation set is 4410
+* The size of test set is 12630
+* The shape of a traffic sign image is (32, 32, 3)
+* The number of unique classes/labels in the data set is 43
+
+####2. Include an exploratory visualization of the dataset.
+
+The figure below is an exploratory visualization of the data set. It shows some random samples that are drawn from the training dataset.  
+
+![alt text][signs_matrix]
+
+The second exploratory figure is a bar chart showing how the record count of each class. The x-axis is the class labels ranged from 0 to 42, while the 
+y-axis is the count of the corresponding class in the training dataset.
+
+![alt text][hist]
+
+###Design and Test a Model Architecture
+
+####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+
+As a first step, I decided to equalize the histogram of the image because I noticed that the color and brightness/contrast
+are not well balanced for many images. This is done by the following operation:
+
+* convert the image from RGB to YUV encoding
+* apply the equalizeHist function from OpenCV to the first channel (the energy)
+* back convert the image to RGB channels 
+
+Here is an example of a traffic sign image before and after color histogram equalization.
+
+![alt text][image1]
+![alt text][image2]
+
+Please note that I did not convert the image to gray scale, because that I observe the color convey 
+important information for classification tasks, such as red, blue, etc.
+
+As a last step, I normalized the image data because the data range is not within [-1,1] range.
+This is done by the equation below
+
+image = (image-128.0)/128.0
+
+####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+
+My final model consisted of the following layers:
+
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 32x32x3 RGB image   							| 
+| Convolution 5x5x3   	| 1x1 stride, same padding 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride                     				|
+| Convolution 5x5x6    	| 1x1 stride, same padding 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
+| Convolution 3x3x16 	| 1x1 stride, same padding 	|
+| RELU					|												|
+| Max pooling	      	| 2x2 stride 				|
+| Fully connected		| 1024 cells        									|
+| RELU					|												|
+| Fully connected		| 1024 cells        									|
+| RELU					|												|
+| Fully connected		| 512 cells        									|
+| RELU					|												|
+| Fully connected		| 128 cells        									|
+| Softmax				|         									|
+ 
+
+
+####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+
+To train the model, I used an AdamOptimizer as the optimizer, cross entropy as loss function. 
+
+####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+My final model results were:
+* training set accuracy of 100.000%
+* validation set accuracy of 96.0%
+* test set accuracy of 93.3%
+
+If an iterative approach was chosen:
+* What was the first architecture that was tried and why was it chosen?
+
+Answer: the initial try is with the default LeNet architect 
+
+* What were some problems with the initial architecture?
+
+Answer: It seems the number of cells or the depth of the networks is not enough to memorize all the data.
+
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
+Answer: the architecture is adjusted by adding more layers and cells. 
+
+* Which parameters were tuned? How were they adjusted and why?
+
+Answer: the parameters are use the default LeNet parameters from previous quiz. It works fine.
+
+
+* What are some of the important design choices and why were they chosen? 
+
+Answer: 
+
+1. RELU in the fully connected layer is an important choice. It is simple, and introduces
+the non-linearality into the networks.
+
+2. The additional number of convolutional layers and fully connected layers are useful to increase the training accuracy.
+
+Note: in my test, the dropout does not improve, so I did not use them.
+
+###Test a Model on New Images
+
+####1. Choose nine German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+
+Here are nine German traffic signs that I found on the web:
+
+(sorry, these images are adapted with different image sizes.)
+
+![alt text][web1] ![alt text][web2] ![alt text][web3]
+ 
+![alt text][web4] ![alt text][web5]![alt text][web6]
+
+![alt text][web7] ![alt text][web8]![alt text][web9] 
+
+
+The second image might be difficult to classify because the shadow of the branches is overcasting on the sign.
+
+####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+
+Here are the results of the prediction:
+
+| Image			        |     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Slippery Road			| Slippery Road      							|
+| Bumpy road     			| Bumpy Road 										|
+| Stop Sign      		| Stop sign   									| 
+| Roundabout (2 images)        | Roundabout |
+| 80 km/h	      		| Roundabout					 				|
+| Right-of-way					| Right-of-way											|
+| Double curve  | Double curve |
+| General caution | General Caution
+
+
+The model was able to correctly guess 8 of the 9 traffic signs, which gives an accuracy of 89%. This compares favorably to the accuracy on the test set of 93.3%.
+
+####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+
+The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
+
+For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+
+The first picture "Slippery Road" is recognized as (with confidence)
+
+* Slippery road (55.70%)
+* Beware of ice/snow (19.77%)
+* Children crossing (10.12%)
+* Bicycles crossing (6.06%)
+* Right-of-way at the next intersection (5.23%)
+
+The "Bumpy Road" picture is recognized as (with confidence)
+* Bumpy road (100.00%)
+* Bicycles crossing (0.00%)
+* Traffic signals (0.00%)
+* General caution (0.00%)
+* Wild animals crossing (0.00%)
+
+The "Stop sign" picture is recognized as (with confidence)
+* Stop (64.39%)
+* Priority road (14.98%)
+* No entry (3.61%)
+* No passing (3.51%)
+* Traffic signals (2.79%)
+
+The "Roundabout mandatory" picture below is recognized as (with confidence)
+* Roundabout mandatory (99.86%)
+* Turn right ahead (0.14%)
+* Speed limit (30km/h) (0.00%)
+* Speed limit (80km/h) (0.00%)
+* End of all speed and passing limits (0.00%)
+
+The "Speed limit (80km/h)" picture is recognized as (with confidence)
+* Roundabout mandatory (90.14%)
+* Speed limit (80km/h) (4.75%)
+* Speed limit (100km/h) (2.42%)
+* Priority road (1.53%)
+* Speed limit (70km/h) (0.89%)
+
+The "Right-of-way at the next intersection" picture is recognized as (with confidence)
+* Right-of-way at the next intersection (46.82%)
+* Pedestrians (21.46%)
+* Beware of ice/snow (6.93%)
+* Dangerous curve to the right (5.44%)
+* Children crossing (4.85%)
+
+The "Double curve" picture is recognized as (with confidence)
+* Double curve (100.00%)
+* Wild animals crossing (0.00%)
+* Road work (0.00%)
+* Right-of-way at the next intersection (0.00%)
+* Bicycles crossing (0.00%)
+
+The "General caution" picture is recognized as (with confidence)
+* General caution (100.00%)
+* Traffic signals (0.00%)
+* Pedestrians (0.00%)
+* Speed limit (20km/h) (0.00%)
+* Speed limit (30km/h) (0.00%)
+
+
+### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
+####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+The first convolution layer outputs from six filters are extracted and illustrated as shown below:
+
+![alt text][image3]
+
+* FeatureMap0: It seems the text "STOP" is enhanced.
+* FeatureMap1: This filter appears to extract the derivatives of the image,
+* FeatureMap2: This filter has a preference of 40-45 degree angle features.
+* FeatureMap3: This appears to be the reverse of FeatureMap1.
+* FeatureMap4: This filter highlights the stright lines of horizontal or vertical oriented patterns.
+* FeatureMap5: This filter extract high frequency vertical lines.
+ 
